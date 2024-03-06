@@ -1,0 +1,90 @@
+﻿@page
+@model Assignment_2.Pages.Manage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<form method="post">
+    <select name="SearchBy">
+        <option value="duration">Search GraduationYear</option>
+        <option value="releaseYear">Search Address</option>
+    </select>
+    <input type="text" asp-for="Keyword" />
+    <button type="submit" class="btn-primary">Search</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorInformation[0].DoctorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorInformation[0].Birthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorInformation[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorInformation[0].DoctorAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorInformation[0].GraduationYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorInformation[0].DoctorLicenseNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorInformation[0].Department)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.DoctorInformation) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GraduationYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorLicenseNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.DoctorId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.DoctorId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.DoctorId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    <ul class="pagination">
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                <a asp-page="./index" asp-route-PageIndex="@i" asp-route-id="@Model.NewId" class="page-link">@i</a>
+            </li>
+        }
+    </ul>
+</div>
